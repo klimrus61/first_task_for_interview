@@ -1,5 +1,7 @@
 from django.db import models
+from django.contrib.auth.models import User
 from webquiz import settings
+
 
 class CollectionQuestions(models.Model):
     '''Набор вопросов'''
@@ -30,7 +32,7 @@ class Choice(models.Model):
 
 class Answer(models.Model):
     '''Ответ пользователя'''
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING)
+    user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     question = models.ForeignKey(Question, on_delete=models.DO_NOTHING)
     choice = models.ForeignKey(Choice, on_delete=models.DO_NOTHING)
     created = models.DateTimeField(auto_now_add=True)
