@@ -55,10 +55,11 @@ class RegistrationUserTest(FunctionalTest):
 
 
 class AuthorizationUserTest(FunctionalTest):
+    '''Аутентификация пользователей тест'''
 
     def test_can_authorization_admin(self):
         '''тест: admin может авторизоваться'''
-# •	Аутентификация пользователей
+
         # Создается админский аккаунт
         admin = User.objects.create_superuser(username='admin', password='admin')
         
@@ -74,7 +75,7 @@ class AuthorizationUserTest(FunctionalTest):
         self.assertIn('Site administration', self.browser.title)
 
     def test_can_authorization_user(self):
-        '''тетс: пользователь может авторизоваться'''
+        '''тест: пользователь может авторизоваться'''
         user = User.objects.create_user(username='test', password='testpassword')
 
         self.browser.get(self.live_server_url + '/accounts/login')
@@ -82,9 +83,25 @@ class AuthorizationUserTest(FunctionalTest):
         inputbox_username.send_keys('test')
         inputbox_password = self.browser.find_element(By.NAME, 'password')
         inputbox_password.send_keys('testpassword')
-        self.browser.find_element(By.NAME, 'login button').click()
+        self.browser.find_element(By.XPATH, '/html/body/div/div/div/div/form/button').click()
 
-        self.assertIs('Home page', self.browser.title)
+        self.assertIn('Home page', self.browser.title)
+
+    def test_cannot_login_not_registered_user(self):
+        '''тест: не зарегистрированный пользователь не может войти'''
+
+        self.browser.get(self.live_server_url + '/accounts/login')
+        inputbox_username = self.browser.find_element(By.NAME, 'username')
+        inputbox_username.send_keys('test')
+        inputbox_password = self.browser.find_element(By.NAME, 'password')
+        inputbox_password.send_keys('testpassword')
+        self.browser.find_element(By.XPATH, '/html/body/div/div/div/div/form/button').click()
+
+        self.wait_for(lambda: self.assertEqual(
+            self.browser.find_element(By.CSS_SELECTOR ,'.has-error').text,
+            "Неправильный логин или пароль"
+        ))
+
 
 
         

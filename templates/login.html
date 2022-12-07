@@ -12,12 +12,12 @@
             <div class="text-center">
                 <h1>{% block header_text %}{% endblock %}</h1>
                 <form method='POST' action="{% block form_action %}{% url 'home_page' %}{% endblock %}">
-                    <input name='item_text' id="id_new_item"
+                    <input name='username' id="id_username"
                     class="form-control input-lg" 
-                    placeholder="Enter a to-do item" />
-                    <input name='item_text' id="id_new_item"
+                    placeholder="Enter a username" />
+                    <input name='password' id="id_password"
                     class="form-control input-lg" 
-                    placeholder="Enter a to-do item" />
+                    placeholder="Enter a password" />
                     <button class="btn btn-primary" type="submit">login</button>
                     {% csrf_token %}
                     {% if error %}

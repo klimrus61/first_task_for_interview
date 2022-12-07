@@ -17,3 +17,4 @@ class AccountsViewTest(TestCase):
         """тест: используется шаблон login"""
         response = self.client.get('/accounts/login/')
         self.assertTemplateUsed(response, 'login.html')
+
