@@ -10,11 +10,3 @@ class HomePageTest(TestCase):
         response = self.client.get('/')
         self.assertTemplateUsed(response, 'home.html')
 
-class AccountsViewTest(TestCase):
-    """Тест представления аккаунтов"""
-
-    def test_uses_login_template(self):
-        """тест: используется шаблон login"""
-        response = self.client.get('/accounts/login/')
-        self.assertTemplateUsed(response, 'login.html')
-
