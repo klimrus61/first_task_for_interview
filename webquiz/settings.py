@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'quiz',
-    'accounts'
+    'accounts',
+    'django_extensions', # тестирование в jupyter notebook 
 
 ]
 

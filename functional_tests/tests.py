@@ -43,7 +43,7 @@ class RegistrationUserTest(FunctionalTest):
     @skip
     def test_can_create_new_user(self):
         '''тест: можно добавить нового пользователя'''
-        self.browser.get(self.live_server_url + '/admin')
+        self.browser.get(self.live_server_url + '/account/')
         self.assertIn('Регистрация', self.browser.title)
 
         inputbox = self.browser.find_element_by_id('id_user_name')
@@ -78,7 +78,7 @@ class AuthorizationUserTest(FunctionalTest):
         '''тест: пользователь может авторизоваться'''
         user = User.objects.create_user(username='test', password='testpassword')
 
-        self.browser.get(self.live_server_url + '/accounts/login')
+        self.browser.get(self.live_server_url + '/account/login')
         inputbox_username = self.browser.find_element(By.NAME, 'username')
         inputbox_username.send_keys('test')
         inputbox_password = self.browser.find_element(By.NAME, 'password')
@@ -90,7 +90,7 @@ class AuthorizationUserTest(FunctionalTest):
     def test_cannot_login_not_registered_user(self):
         '''тест: не зарегистрированный пользователь не может войти'''
 
-        self.browser.get(self.live_server_url + '/accounts/login')
+        self.browser.get(self.live_server_url + '/account/login')
         inputbox_username = self.browser.find_element(By.NAME, 'username')
         inputbox_username.send_keys('test')
         inputbox_password = self.browser.find_element(By.NAME, 'password')
